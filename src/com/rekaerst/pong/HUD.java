@@ -6,8 +6,6 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-import com.rekaerst.pong.gameobj.ID;
-
 public class HUD {
 
     private static final int PD_OFFSET = 250; // point display offset

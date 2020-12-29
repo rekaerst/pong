@@ -1,4 +1,4 @@
-package com.rekaerst.pong.menuobj;
+package com.rekaerst.pong.menu;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -15,39 +15,48 @@ import com.rekaerst.pong.Game;
 
 public class Menu extends MouseAdapter {
     Font font;
-    private MenuButton playButton;
-    private MenuButton helpButton;
-    private MenuButton exitButton;
+    // private MenuButton playButton;
+    // private MenuButton helpButton;
+    // private MenuButton exitButton;
     private int mx;
     private int my;
     private Game game;
     private String text;
+    public LinkedList<MenuButton> buttons = new LinkedList<MenuButton>();
 
-    private LinkedList<MenuButton> buttons = new LinkedList<MenuButton>();
+    public void addButton(MenuButton button) {
+        this.buttons.add(button);
+    }
+
+    public void removeButton(MenuButton button) {
+        this.buttons.remove(button);
+    }
 
     public Menu(String text, Game game) {
         this.text = text;
         this.game = game;
         loadFont();
-        playButton = new MenuButton(Game.WIDTH / 2, Game.HEIGHT / 5 * 2, 300, 100, "Play", this) {
+
+        new MenuButton(Game.WIDTH / 2, Game.HEIGHT / 5 * 2, 300, 100, "Play", this) {
             @Override
             public void act() {
                 game.setGameState(Game.STATE.Game);
                 game.initialGame();
             }
         };
-        helpButton = new MenuButton(Game.WIDTH / 2, Game.HEIGHT / 5 * 3, 300, 100, "Help", this) {
+        new MenuButton(Game.WIDTH / 2, Game.HEIGHT / 5 * 3, 300, 100, "Help", this) {
             @Override
             public void act() {
-
+                parentMenu.setText("Help");
             }
         };
-        exitButton = new MenuButton(Game.WIDTH / 2, Game.HEIGHT / 5 * 4, 300, 100, "Exit", this) {
+        new MenuButton(Game.WIDTH / 2, Game.HEIGHT / 5 * 4, 300, 100, "Exit", this) {
             @Override
             public void act() {
                 System.exit(0);
             }
         };
+
     }
 
     private void loadFont() {
@@ -103,19 +112,19 @@ public class Menu extends MouseAdapter {
         }
     }
 
-    public void addButton(MenuButton button) {
-        this.buttons.add(button);
-    }
-
-    public void removeButton(MenuButton button) {
-        this.buttons.remove(button);
-    }
-
     public int getMx() {
         return mx;
     }
 
     public int getMy() {
         return my;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }

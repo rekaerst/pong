@@ -36,7 +36,7 @@ public class Game extends Canvas implements Runnable {
     public static final String TITLE = "Pong Game";
 
     public enum STATE {
-        Pause, Game, Menu
+        Pause, Game, Menu, Help
     }
 
     private STATE gameState = STATE.Menu;

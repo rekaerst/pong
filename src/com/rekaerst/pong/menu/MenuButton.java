@@ -1,13 +1,12 @@
-package com.rekaerst.pong.menuobj;
+package com.rekaerst.pong.menu;
 
 import java.awt.Graphics;
-import java.util.LinkedList;
 
 public class MenuButton {
 
     private int x, y, width, height;
     private String text;
-    private Menu parentMenu;
+    protected Menu parentMenu;
 
     public MenuButton(int x, int y, int width, int height, String text, Menu parentMenu) {
         this.x = x;
