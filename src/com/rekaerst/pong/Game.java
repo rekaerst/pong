@@ -176,18 +176,18 @@ public class Game extends Canvas implements Runnable {
         bs.show();
     }
 
-    public String getOSName() {
+    public static String getOSName() {
         if (OS == null) {
             OS = System.getProperty("os.name");
         }
         return OS;
     }
 
-    public boolean isWindows() {
+    public static boolean isWindows() {
         return getOSName().startsWith("Windows");
     }
 
-    public boolean isLinux() {
+    public static boolean isLinux() {
         return getOSName().startsWith("Linux");
     }
 
