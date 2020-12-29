@@ -13,7 +13,7 @@ import com.rekaerst.pong.gameobj.ID;
 import com.rekaerst.pong.gameobj.Net;
 import com.rekaerst.pong.gameobj.Player;
 import com.rekaerst.pong.gameobj.Side;
-import com.rekaerst.pong.menuobj.Menu;
+import com.rekaerst.pong.menu.Menu;
 
 public class Game extends Canvas implements Runnable {
 
@@ -33,7 +33,7 @@ public class Game extends Canvas implements Runnable {
     public static final int EDGE_HEIGHT = 20;
     public static final int SIDE_WIDTH = 20;
 
-    public static final String TITLE = "JRocket Game";
+    public static final String TITLE = "Pong Game";
 
     public enum STATE {
         Pause, Game, Menu
