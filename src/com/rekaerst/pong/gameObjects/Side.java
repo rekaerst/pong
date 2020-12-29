@@ -15,7 +15,7 @@ public class Side extends CollisonObject {
 
     @Override
     public void render(Graphics g) {
-        if (Game.debug) {
+        if (Game.isDebugging) {
             g.setColor(Color.green);
             g.fillRect(x, 0, width, Game.HEIGHT);
             g.setColor(Color.cyan);

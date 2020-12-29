@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import com.rekaerst.pong.Game;
-import com.rekaerst.pong.Spawner;
+import com.rekaerst.pong.ScoreBoard;
 import com.rekaerst.pong.World;
 
 public class Player extends CollisonObject {
@@ -45,14 +45,17 @@ public class Player extends CollisonObject {
         g.setColor(color);
         g.fillRect(x - width / 2, y - height / 2, width, height);
 
-        if (Game.debug) {
+        if (Game.isDebugging) {
             g.setColor(Color.green);
             Graphics2D g2d = (Graphics2D) g;
             g2d.draw(getBounds());
             g.setColor(new Color(140, 140, 255));
             drawDebugInfo(g, id.toString(), y + height / 2 + 20);
-            drawDebugInfo(g, "Points:"
-                    + String.valueOf(id == ID.Player1 ? Spawner.getPlayer1Points() : Spawner.getPlayer2Points()) + "\n",
+            drawDebugInfo(g,
+                    "Points:"
+                            + String.valueOf(
+                                    id == ID.Player1 ? ScoreBoard.getPlayer1Points() : ScoreBoard.getPlayer2Points())
+                            + "\n",
                     y + height / 2 + 40);
             drawDebugInfo(g, "Velocity:" + String.valueOf(velY), y + height / 2 + 60);
             drawDebugInfo(g, "Force:" + String.valueOf(force), y + height / 2 + 80);

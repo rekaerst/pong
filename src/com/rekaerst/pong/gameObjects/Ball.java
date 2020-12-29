@@ -7,7 +7,7 @@ import java.awt.Rectangle;
 import java.util.Random;
 
 import com.rekaerst.pong.Game;
-import com.rekaerst.pong.Spawner;
+import com.rekaerst.pong.ScoreBoard;
 import com.rekaerst.pong.World;
 
 public class Ball extends CollisonObject {
@@ -50,13 +50,13 @@ public class Ball extends CollisonObject {
                         }
                         break;
                     case Player2Side:
-                        Spawner.setPlayer1Points(Spawner.getPlayer1Points() + 1);
+                        ScoreBoard.setPlayer1Points(ScoreBoard.getPlayer1Points() + 1);
                         respawn();
                         break;
                     case Player1Side:
                         respawn();
 
-                        Spawner.setPlayer2Points(Spawner.getPlayer2Points() + 1);
+                        ScoreBoard.setPlayer2Points(ScoreBoard.getPlayer2Points() + 1);
                         break;
                     default:
                         break;
@@ -73,7 +73,7 @@ public class Ball extends CollisonObject {
         g.setColor(color);
         g.fillOval(x - radius, y - radius, radius * 2, radius * 2);
 
-        if (Game.debug) {
+        if (Game.isDebugging) {
             g.setColor(Color.green);
             Graphics2D g2d = (Graphics2D) g;
             g2d.draw(getBounds());
