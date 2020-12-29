@@ -3,9 +3,9 @@ package com.rekaerst.pong;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import com.rekaerst.pong.gameObjects.GameObject;
-import com.rekaerst.pong.gameObjects.ID;
-import com.rekaerst.pong.gameObjects.Player;
+import com.rekaerst.pong.gameobj.GameObject;
+import com.rekaerst.pong.gameobj.ID;
+import com.rekaerst.pong.gameobj.Player;
 
 public class KeyInput extends KeyAdapter {
 

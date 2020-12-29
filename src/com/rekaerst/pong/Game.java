@@ -6,13 +6,14 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 
-import com.rekaerst.pong.gameObjects.Ball;
-import com.rekaerst.pong.gameObjects.Edge;
-import com.rekaerst.pong.gameObjects.GameObject;
-import com.rekaerst.pong.gameObjects.ID;
-import com.rekaerst.pong.gameObjects.Net;
-import com.rekaerst.pong.gameObjects.Player;
-import com.rekaerst.pong.gameObjects.Side;
+import com.rekaerst.pong.gameobj.Ball;
+import com.rekaerst.pong.gameobj.Edge;
+import com.rekaerst.pong.gameobj.GameObject;
+import com.rekaerst.pong.gameobj.ID;
+import com.rekaerst.pong.gameobj.Net;
+import com.rekaerst.pong.gameobj.Player;
+import com.rekaerst.pong.gameobj.Side;
+import com.rekaerst.pong.menuobj.Menu;
 
 public class Game extends Canvas implements Runnable {
 
@@ -51,7 +52,7 @@ public class Game extends Canvas implements Runnable {
         isDebugging = true;
         world = new World();
         hud = new HUD();
-        menu = new Menu(this);
+        menu = new Menu("Menu", this);
         scoreBoard = new ScoreBoard();
 
         this.addKeyListener(new KeyInput(world));

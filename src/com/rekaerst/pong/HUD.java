@@ -6,7 +6,7 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-import com.rekaerst.pong.gameObjects.ID;
+import com.rekaerst.pong.gameobj.ID;
 
 public class HUD {
 

@@ -1,4 +1,4 @@
-package com.rekaerst.pong.gameObjects;
+package com.rekaerst.pong.gameobj;
 
 import java.awt.Color;
 import java.awt.Graphics;

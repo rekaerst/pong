@@ -3,8 +3,8 @@ package com.rekaerst.pong;
 import java.awt.Graphics;
 import java.util.LinkedList;
 
-import com.rekaerst.pong.gameObjects.GameObject;
-import com.rekaerst.pong.gameObjects.ID;
+import com.rekaerst.pong.gameobj.GameObject;
+import com.rekaerst.pong.gameobj.ID;
 
 public class Handler { // update all of objects
     public LinkedList<GameObject> objects = new LinkedList<GameObject>();

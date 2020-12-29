@@ -1,4 +1,4 @@
-package com.rekaerst.pong;
+package com.rekaerst.pong.menuobj;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 
+import com.rekaerst.pong.Game;
+
 public class Menu extends MouseAdapter {
     Font font;
     private MenuButton playButton;
@@ -19,10 +21,12 @@ public class Menu extends MouseAdapter {
     private int mx;
     private int my;
     private Game game;
+    private String text;
 
     private LinkedList<MenuButton> buttons = new LinkedList<MenuButton>();
 
-    public Menu(Game game) {
+    public Menu(String text, Game game) {
+        this.text = text;
         this.game = game;
         loadFont();
         playButton = new MenuButton(Game.WIDTH / 2, Game.HEIGHT / 5 * 2, 300, 100, "Play", this) {
@@ -90,15 +94,13 @@ public class Menu extends MouseAdapter {
 
     public void render(Graphics g) {
 
-        // if (Game.isDebugging) {
         g.setFont(font);
         g.setColor(Color.white);
-        g.drawString("Menu", Game.WIDTH / 2 - g.getFontMetrics().stringWidth("Menu") / 2, 100);
+        g.drawString(text, Game.WIDTH / 2 - g.getFontMetrics().stringWidth("Menu") / 2, 100);
 
         for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).render(g);
         }
-        // }
     }
 
     public void addButton(MenuButton button) {

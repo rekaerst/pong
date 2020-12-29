@@ -1,4 +1,4 @@
-package com.rekaerst.pong;
+package com.rekaerst.pong.menuobj;
 
 import java.awt.Graphics;
 import java.util.LinkedList;

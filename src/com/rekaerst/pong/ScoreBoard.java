@@ -1,6 +1,6 @@
 package com.rekaerst.pong;
 
-import com.rekaerst.pong.gameObjects.ID;
+import com.rekaerst.pong.gameobj.ID;
 
 public class ScoreBoard {
 
