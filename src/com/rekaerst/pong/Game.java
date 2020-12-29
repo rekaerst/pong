@@ -35,10 +35,10 @@ public class Game extends Canvas implements Runnable {
     public static final String TITLE = "JRocket Game";
 
     public enum STATE {
-        PauseMenu, Game, Menu
+        Pause, Game, Menu
     }
 
-    public STATE gameState = STATE.Menu;
+    private STATE gameState = STATE.Menu;
 
     public static long test = 0;
 
@@ -51,33 +51,38 @@ public class Game extends Canvas implements Runnable {
         isDebugging = true;
         world = new World();
         hud = new HUD();
-        menu = new Menu();
+        menu = new Menu(this);
         scoreBoard = new ScoreBoard();
 
         this.addKeyListener(new KeyInput(world));
+        this.addMouseListener(menu);
 
         new Window(WIDTH, HEIGHT, TITLE, this);
 
         if (gameState == STATE.Game) {
-            GameObject player1 = new Player(WIDTH / 16, HEIGHT / 2, 10, new Color(255, 180, 180), ID.Player1, world);
-            GameObject player2 = new Player(WIDTH / 16 * 15, HEIGHT / 2, 10, new Color(180, 180, 255), ID.Player2,
-                    world);
-            GameObject net = new Net(Game.WIDTH / 2, 10, new Color(220, 220, 220), ID.Other, world);
-            GameObject sideLeft = new Side(0, SIDE_WIDTH, ID.Player1Side, world);
-            GameObject sideRight = new Side(WIDTH - SIDE_WIDTH, SIDE_WIDTH, ID.Player2Side, world);
-            GameObject ball = new Ball(WIDTH / 2, HEIGHT / 2, 10, new Color(255, 255, 200), ID.Ball, world);
-            GameObject edgeUp = new Edge(HEIGHT - 20, EDGE_HEIGHT, new Color(220, 220, 255), world);
-            GameObject edgeDown = new Edge(0, EDGE_HEIGHT, new Color(220, 220, 255), world);
-
-            world.addObject(sideLeft);
-            world.addObject(sideRight);
-            world.addObject(edgeUp);
-            world.addObject(edgeDown);
-            world.addObject(net);
-            world.addObject(player1);
-            world.addObject(player2);
-            world.addObject(ball);
+            initialGame();
         }
+    }
+
+    public void initialGame() {
+        GameObject player1 = new Player(WIDTH / 16, HEIGHT / 2, 10, new Color(255, 180, 180), ID.Player1, world);
+        GameObject player2 = new Player(WIDTH / 16 * 15, HEIGHT / 2, 10, new Color(180, 180, 255), ID.Player2, world);
+        GameObject net = new Net(Game.WIDTH / 2, 10, new Color(220, 220, 220), ID.Other, world);
+        GameObject sideLeft = new Side(0, SIDE_WIDTH, ID.Player1Side, world);
+        GameObject sideRight = new Side(WIDTH - SIDE_WIDTH, SIDE_WIDTH, ID.Player2Side, world);
+        GameObject ball = new Ball(WIDTH / 2, HEIGHT / 2, 10, new Color(255, 255, 200), ID.Ball, world);
+        GameObject edgeUp = new Edge(HEIGHT - 20, EDGE_HEIGHT, new Color(220, 220, 255), world);
+        GameObject edgeDown = new Edge(0, EDGE_HEIGHT, new Color(220, 220, 255), world);
+
+        world.addObject(sideLeft);
+        world.addObject(sideRight);
+        world.addObject(edgeUp);
+        world.addObject(edgeDown);
+        world.addObject(net);
+        world.addObject(player1);
+        world.addObject(player2);
+        world.addObject(ball);
+
     }
 
     public synchronized void start() {
@@ -205,4 +210,13 @@ public class Game extends Canvas implements Runnable {
 
         new Game();
     }
+
+    public STATE getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(STATE gameState) {
+        this.gameState = gameState;
+    }
+
 }
