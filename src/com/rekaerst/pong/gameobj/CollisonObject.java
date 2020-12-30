@@ -29,6 +29,9 @@ import java.awt.Rectangle;
 
 import com.rekaerst.pong.Handler;
 
+/**
+ * implemention of GameObject that has collition detaction bounds of a rectangle
+ */
 public class CollisonObject extends GameObject {
 
     public CollisonObject(int x, int y, int width, int height, Color color, ID id, Handler handler) {

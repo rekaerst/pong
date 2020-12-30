@@ -25,8 +25,11 @@ package com.rekaerst.pong;
 
 import com.rekaerst.pong.gameobj.ID;
 
+/**
+ * ScoreBaord record score of each player and invoke endGame() method of Game
+ * class when certain score has reached
+ */
 public class ScoreBoard {
-
     private static int player1Points;
     private static int player2Points;
     private static ID winner;
@@ -43,6 +46,12 @@ public class ScoreBoard {
 
     }
 
+    /**
+     * get score of a player of specific ID playerId
+     * 
+     * @param playerId id of player
+     * @return score of the player
+     */
     public static int getPlayerPoints(ID playerId) {
         if (playerId == ID.Player1) {
             return ScoreBoard.player1Points;
@@ -53,6 +62,14 @@ public class ScoreBoard {
         }
     }
 
+    /**
+     * set the score of a player of specific ID playerId. Invokes endGame() method
+     * from Game class when certain score has reached. DONNOT use this methed to
+     * clearn score record.
+     * 
+     * @param playerId     id of player
+     * @param playerPoints new score of player
+     */
     public static void setPlayerPoints(ID playerId, int playerPoints) {
         if (playerId == ID.Player1) {
             ScoreBoard.player1Points = playerPoints;
@@ -69,6 +86,9 @@ public class ScoreBoard {
         }
     }
 
+    /**
+     * cclear score record.
+     */
     public static void clearScore() {
         ScoreBoard.player1Points = 0;
         ScoreBoard.player2Points = 0;

@@ -30,6 +30,9 @@ import java.awt.Shape;
 import com.rekaerst.pong.Game;
 import com.rekaerst.pong.Handler;
 
+/**
+ * non collision implemention of GameObject that serve as graphical declaration
+ */
 public class Net extends GameObject {
     public static final int HOLES = 18;
     public static final int HOLES_LENGTH = (Game.HEIGHT - 2 * Game.EDGE_HEIGHT) / (HOLES * 2 + 1);
@@ -43,6 +46,7 @@ public class Net extends GameObject {
     }
 
     @Override
+    /** render net with holes */
     public void render(Graphics g) {
         g.setColor(color);
         g.fillRect(x - width / 2, 0, width, height);

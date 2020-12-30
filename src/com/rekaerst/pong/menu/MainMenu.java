@@ -25,6 +25,9 @@ package com.rekaerst.pong.menu;
 
 import com.rekaerst.pong.Game;
 
+/**
+ * the mainMenu of game
+ */
 public class MainMenu extends Menu {
 
     private MenuButton playButton;

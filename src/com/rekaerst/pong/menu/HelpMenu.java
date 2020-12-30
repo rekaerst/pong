@@ -28,6 +28,9 @@ import java.awt.Graphics;
 
 import com.rekaerst.pong.Game;
 
+/**
+ * the help submenu of game
+ */
 public class HelpMenu extends Menu {
 
     private Font fontText;

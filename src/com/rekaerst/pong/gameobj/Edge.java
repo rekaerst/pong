@@ -30,6 +30,7 @@ import java.awt.Rectangle;
 import com.rekaerst.pong.Game;
 import com.rekaerst.pong.Handler;
 
+//** Edges of table*/
 public class Edge extends CollisonObject {
 
     public Edge(int y, int height, Color color, Handler handler) {

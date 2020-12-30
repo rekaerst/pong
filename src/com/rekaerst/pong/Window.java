@@ -29,6 +29,7 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+/** Main window of game */
 public class Window extends Canvas {
 
     /**
@@ -38,18 +39,21 @@ public class Window extends Canvas {
 
     public Window(int width, int height, String title, Game game) {
         JFrame frame = new JFrame(title);
-        Container panel = frame.getContentPane();
-
-        panel.setPreferredSize(new Dimension(width, height));
-        panel.setMaximumSize(new Dimension(width, height));
-        panel.setMinimumSize(new Dimension(width, height));
+        Container pane = frame.getContentPane();
+        // set content pane of frame to width and height
+        pane.setPreferredSize(new Dimension(width, height));
+        pane.setMaximumSize(new Dimension(width, height));
+        pane.setMinimumSize(new Dimension(width, height));
         frame.pack();
+        // windows width is equal to content pane width
+        // windows height is equal to content pane width plus height of window title bar
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
+        // add game Canvas
         frame.add(game);
         frame.setVisible(true);
+        // start game thread
         game.start();
-        System.out.println(panel.getSize());
     }
 }

@@ -42,13 +42,15 @@ import com.rekaerst.pong.menu.HelpMenu;
 import com.rekaerst.pong.menu.Menu;
 import com.rekaerst.pong.menu.MenuHandler;
 
+/** Updates and handles state of current game. Main class */
 public class Game extends Canvas implements Runnable {
 
     private static final long serialVersionUID = 951988467320086772L;
-
+    /** OS identifier */
     private static String OS = null;
 
     private Thread thread;
+    /** Whether the thread is running */
     private boolean running = false;
 
     private Menu mainMenu;
@@ -62,23 +64,32 @@ public class Game extends Canvas implements Runnable {
 
     private boolean isFirstRun = true;
 
+    /** Game Windows size */
     public static final int WIDTH = 1280, HEIGHT = WIDTH / 16 * 9;
+    /** Game Collision Aera size */
     public static final int EDGE_HEIGHT = 20;
+    /** Game Score Aera size */
     public static final int SIDE_WIDTH = 20;
 
-    public static final String TITLE = "Pong Game";
+    /** main Application name */
+    public static final String TITLE = "Pong";
 
+    /** Possible states of game */
     public enum STATE {
         Game, Menu, Help, End
     }
 
+    /** Current state of instance of game */
     private STATE gameState = STATE.Menu;
 
-    public static long test = 0;
-
+    /**
+     * Debugin infomation display flag, show collision bounds and atributes of game
+     * objects when true
+     */
     public static boolean isDebugging = false;
 
     public Game() {
+        // Hardware acclertaion is not enabled on linux by defualt
         if (isLinux()) {
             System.setProperty("sun.java2d.opengl", "true");
         }
@@ -99,17 +110,28 @@ public class Game extends Canvas implements Runnable {
         new Window(WIDTH, HEIGHT, TITLE, this);
     }
 
-    public void initialGame() {
+    // Initial new game or start a new game
+    private void initialGame() {
+
+        // remove mouse listeners and thus button press detection
         removeMouseListener(mainMenuHandler);
+        // remove preiouse game objects
         Handler.removeAll();
+        // clear Score system
         ScoreBoard.clearScore();
 
+        // reverse x velocity of ball when collide with ball
         GameObject player1 = new Player(WIDTH / 16, HEIGHT / 2, 10, new Color(255, 180, 180), ID.Player1, Handler);
         GameObject player2 = new Player(WIDTH / 16 * 15, HEIGHT / 2, 10, new Color(180, 180, 255), ID.Player2, Handler);
+        // middle net of table
         GameObject net = new Net(Game.WIDTH / 2, 10, new Color(220, 220, 220), ID.Other, Handler);
+        // Scroe area
         GameObject sideLeft = new Side(0, SIDE_WIDTH, ID.Player1Side, Handler);
         GameObject sideRight = new Side(WIDTH - SIDE_WIDTH, SIDE_WIDTH, ID.Player2Side, Handler);
+        // pong ball with collision detection
         GameObject ball = new Ball(WIDTH / 2, HEIGHT / 2, 10, new Color(255, 255, 200), ID.Ball, Handler);
+        // Objects for collision detection, reverse y velocity of ball when collide with
+        // ball
         GameObject edgeUp = new Edge(HEIGHT - 20, EDGE_HEIGHT, new Color(220, 220, 255), Handler);
         GameObject edgeDown = new Edge(0, EDGE_HEIGHT, new Color(220, 220, 255), Handler);
 
@@ -141,12 +163,14 @@ public class Game extends Canvas implements Runnable {
 
     public void run() {
         long lastTime = System.nanoTime();
+        /** amount of ticks per second */
         double amountOfTicks = 60.0;
         double ns = 1000000000 / amountOfTicks;
         double delta = 0;
         long timer = System.currentTimeMillis();
         int frames = 0;
 
+        // request forucs from OS after game started running
         this.requestFocus();
         while (running) {
             long now = System.nanoTime();
@@ -179,13 +203,10 @@ public class Game extends Canvas implements Runnable {
                 scoreBoard.tick();
                 break;
             case Menu:
-                mainMenu.tick();
                 break;
             default:
                 break;
         }
-
-        mainMenu.tick();
     }
 
     private void render() {
@@ -199,14 +220,16 @@ public class Game extends Canvas implements Runnable {
 
         g.setColor(Color.black);
         g.fillRect(0, 0, WIDTH, HEIGHT);
-        if (isLinux()) {
+        if (isLinux()) { // work around with java graphics on linux
             Toolkit.getDefaultToolkit().sync();
         }
 
         switch (gameState) {
             case Game:
-                hud.render(g);
+                // render all instances of GameObject
                 Handler.render(g);
+                // render hud on top of screen
+                hud.render(g);
                 break;
             case Menu:
                 mainMenu.render(g);
@@ -215,8 +238,8 @@ public class Game extends Canvas implements Runnable {
                 helpMenu.render(g);
                 break;
             case End:
-                hud.render(g);
                 Handler.render(g);
+                hud.render(g);
                 break;
             default:
                 break;

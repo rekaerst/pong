@@ -34,6 +34,10 @@ import com.rekaerst.pong.Game;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+/**
+ * A instance of Menu is a implemention of a UI frame thane extends MouseAdapter
+ * to detect click of instances of MenuButton
+ */
 public class Menu extends MouseAdapter {
     protected Font font;
     protected Font fontHeading;
@@ -42,6 +46,13 @@ public class Menu extends MouseAdapter {
     private String text;
     private MenuHandler menuHandler;
 
+    /**
+     * create a new instance of Menu
+     * 
+     * @param text        Heading of menu
+     * @param game        game the menu bleonds to
+     * @param menuHandler menu handler that handles this menu
+     */
     public Menu(String text, Game game, MenuHandler menuHandler) {
         this.text = text;
         this.game = game;
@@ -49,14 +60,25 @@ public class Menu extends MouseAdapter {
         loadFont();
     }
 
+    /**
+     * get menu handler of this menu
+     * 
+     * @return meny handler of this menu
+     */
     public MenuHandler getMenuHandler() {
         return menuHandler;
     }
 
+    /**
+     * set menu handler of this menu
+     * 
+     * @param menuHandler new menu handler of this menu
+     */
     public void setMenuHandler(MenuHandler menuHandler) {
         this.menuHandler = menuHandler;
     }
 
+    /** Loads resource font */
     private void loadFont() {
         try {
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -64,10 +86,10 @@ public class Menu extends MouseAdapter {
             ge.registerFont(font);
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
-            if (Game.isWindows()) {
+            if (Game.isWindows()) { // windows fallback
                 System.err.println("can't find 3270 Font. Fallback to arial");
                 font = new Font("arial", Font.BOLD, 50);
-            } else if (Game.isLinux()) {
+            } else if (Game.isLinux()) { // linux fallback
                 System.err.println("can't find 3270 Font. Fallback to DejaVu Sans");
                 font = new Font("DejaVu Sans", Font.BOLD, 50);
             }
@@ -76,10 +98,11 @@ public class Menu extends MouseAdapter {
         fontButton = font.deriveFont(Font.BOLD, 30f);
     }
 
-    public void tick() {
-
-    }
-
+    /**
+     * render menu
+     * 
+     * @param g graphics context to render with
+     */
     public void render(Graphics g) {
         g.setColor(Color.black);
         g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
@@ -87,13 +110,25 @@ public class Menu extends MouseAdapter {
         g.setColor(Color.white);
         g.drawString(text, Game.WIDTH / 2 - g.getFontMetrics().stringWidth("Menu") / 2, 60);
         g.setFont(fontButton);
+        // call render of instance of MenuHandler to rendre instance of MenuButton.
         menuHandler.render(g);
     }
+
+    /**
+     * get headding of menu
+     * 
+     * @return heading fo menu
+     */
 
     public String getText() {
         return text;
     }
 
+    /**
+     * set heading of menu
+     * 
+     * @param text new heading of menu
+     */
     public void setText(String text) {
         this.text = text;
     }

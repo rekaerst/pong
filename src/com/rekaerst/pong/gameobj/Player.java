@@ -32,11 +32,17 @@ import com.rekaerst.pong.Game;
 import com.rekaerst.pong.ScoreBoard;
 import com.rekaerst.pong.Handler;
 
+/**
+ * implemention of Player, of which instances are capable of collide with
+ * instances of Ball
+ */
 public class Player extends CollisonObject {
     private int speed = 10;
     public static final double FORCE = 0.5;
+    // expand bounds byound graphics bounds of player as a workaround of human
+    // illusion
     public static final double BOUNDS_FACTOR = 2.5;
-
+    // player force that affects the speed of hitted ball
     private double force = 0;
 
     public Player(int x, int y, int width, int height, Color color, ID id, Handler handler) {
@@ -50,7 +56,7 @@ public class Player extends CollisonObject {
     @Override
     public void tick() {
         super.tick();
-
+        // player cannot move beyound bounds of table
         if (velY < 0) {
             if (y > height / 2 + Game.EDGE_HEIGHT)
                 y += velY;
@@ -88,18 +94,38 @@ public class Player extends CollisonObject {
                 height);
     }
 
+    /**
+     * get force of player
+     * 
+     * @return force of player
+     */
     public double getForce() {
         return force;
     }
 
+    /**
+     * set force of player
+     * 
+     * @param force new force of player
+     */
     public void setForce(double force) {
         this.force = force;
     }
 
+    /**
+     * get speed of player
+     * 
+     * @return speed of player
+     */
     public int getSpeed() {
         return speed;
     }
 
+    /**
+     * set speed of player
+     * 
+     * @param speed new speed of player
+     */
     public void setSpeed(int speed) {
         this.speed = speed;
     }

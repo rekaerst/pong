@@ -29,6 +29,7 @@ import java.awt.Shape;
 
 import com.rekaerst.pong.Handler;
 
+/** abstract class for all non UI objects appears in game */
 public abstract class GameObject {
 
     protected int x, y;
@@ -38,6 +39,16 @@ public abstract class GameObject {
     protected Handler handler;
     protected Color color = Color.white;
 
+    /**
+     * 
+     * @param x       x coordinate (center)
+     * @param y       y coordinate (center)
+     * @param width   object width
+     * @param height  object height
+     * @param color   object color
+     * @param id      objecgt id
+     * @param handler handler of object
+     */
     public GameObject(int x, int y, int width, int height, Color color, ID id, Handler handler) {
         this.x = x;
         this.y = y;
@@ -48,54 +59,132 @@ public abstract class GameObject {
         this.color = color;
     }
 
+    /** handles game logic */
     public abstract void tick();
 
+    /**
+     * handles rendering
+     * 
+     * @param g graphics context to render with
+     */
     public abstract void render(Graphics g);
 
+    /**
+     * get collision bounds of object
+     * 
+     * @return a Shape that indicates collision bounds of object
+     */
     public abstract Shape getBounds();
 
+    /**
+     * test if instance of GameObject intersects/collide to other instance of
+     * GameObjec
+     * 
+     * @param gameObject other instance of GameObject to test with
+     * @return true when two object collide into each other, false in other
+     *         condition
+     */
     public abstract boolean intersects(GameObject gameObject);
 
+    /**
+     * display debuge information around an instance of GameObject
+     * 
+     * @param g      graphics context
+     * @param str    information to display
+     * @param offset information vertical offset to object
+     */
     protected void drawDebugInfo(Graphics g, String str, int offset) {
         g.drawString(str, x - g.getFontMetrics().stringWidth(str) / 2, offset);
     }
 
+    // getters and setters
+
+    /**
+     * get x coordinate of object
+     * 
+     * @return x coordinate of object
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * set x coordinate of object
+     * 
+     * @param x new x coordinate
+     */
     public void setX(int x) {
         this.x = x;
     }
 
+    /**
+     * get y coordinate of object
+     * 
+     * @return y coordinate of object
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     * set y coordinate of object
+     * 
+     * @param y new y coordinate
+     */
     public void setY(int y) {
         this.y = y;
     }
 
+    /**
+     * get id of object
+     * 
+     * @return id of object
+     */
     public ID getId() {
         return id;
     }
 
+    /**
+     * set id of object
+     * 
+     * @param id new id of object
+     */
     public void setId(ID id) {
         this.id = id;
     }
 
+    /**
+     * get velocity at x coordinate of object
+     * 
+     * @return x coordinate velocity of object
+     */
     public int getVelX() {
         return velX;
     }
 
+    /**
+     * sete x coordinate velocity of object
+     * 
+     * @param velX new x coordinate velocity of object
+     */
     public void setVelX(int velX) {
         this.velX = velX;
     }
 
+    /**
+     * get velocity at y coordinate of object
+     * 
+     * @return y coordinate velocity of object
+     */
     public int getVelY() {
         return velY;
     }
 
+    /**
+     * sete y coordinate velocity of object
+     * 
+     * @param velY new y coordinate velocity of object
+     */
     public void setVelY(int velY) {
         this.velY = velY;
     }

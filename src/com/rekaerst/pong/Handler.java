@@ -29,9 +29,15 @@ import java.util.LinkedList;
 import com.rekaerst.pong.gameobj.GameObject;
 import com.rekaerst.pong.gameobj.ID;
 
+/**
+ * Implement of simple game object handler, implement tick and render methods.
+ * instances of GameObject that was to be handled by handler was added to a
+ * linked list LinkedList<GameObject> objects
+ */
 public class Handler { // update all of objects
     public LinkedList<GameObject> objects = new LinkedList<GameObject>();
 
+    /** call tick method of each object in LinkedList<GameObject> objects */
     public void tick() {
         for (int i = 0; i < objects.size(); i++) {
             GameObject tempObject = objects.get(i);
@@ -39,6 +45,11 @@ public class Handler { // update all of objects
         }
     }
 
+    /**
+     * call render method of each object that managed by handler
+     * 
+     * @param g graphics contexts to render with
+     */
     public void render(Graphics g) {
         for (int i = 0; i < objects.size(); i++) {
             GameObject tempObject = objects.get(i);
@@ -46,6 +57,13 @@ public class Handler { // update all of objects
         }
     }
 
+    /**
+     * get reference of first appearence of a GameObject that has id of paprameter
+     * id
+     * 
+     * @param id id of GameObject to get
+     * @return first GameObject on handler.objects that id == parameter id
+     */
     public GameObject getObject(ID id) {
         for (int i = 0; i < objects.size(); i++) {
             GameObject tempObject = objects.get(i);
@@ -56,14 +74,28 @@ public class Handler { // update all of objects
         return null;
     }
 
+    /**
+     * append a specific GameObject to handeler
+     * 
+     * @param object GameObject ot add
+     */
     public void addObject(GameObject object) {
         this.objects.add(object);
     }
 
+    /**
+     * removed a specific GameObject from handler
+     * 
+     * @param object GameObject to remove
+     */
     public void removeObject(GameObject object) {
         this.objects.remove(object);
     }
 
+    /**
+     * discard original LinkedList<GameObject> objects and create a new one
+     * effectivelt equal to remove all instances of GameObject from handler
+     */
     public void removeAll() {
         objects = new LinkedList<GameObject>();
     }

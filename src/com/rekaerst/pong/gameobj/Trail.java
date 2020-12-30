@@ -31,6 +31,11 @@ import java.awt.Shape;
 
 import com.rekaerst.pong.Handler;
 
+/**
+ * non collision implemention of GameObject that serve as graphical declaration
+ * A trail flows the object created it and fade by time
+ * 
+ */
 public class Trail extends GameObject {
     private ID parentId;
 
@@ -38,6 +43,18 @@ public class Trail extends GameObject {
 
     private int life;
 
+    /**
+     * 
+     * @param x        x coordinate (center)
+     * @param y        y coordinate (center)
+     * @param width    width of trail
+     * @param height   height of trail
+     * @param life     lenght of trail
+     * @param color    color of trail
+     * @param parentId parent/creator of trail
+     * @param id       id
+     * @param handler  handler
+     */
     public Trail(int x, int y, int width, int height, int life, Color color, ID parentId, ID id, Handler handler) {
         super(x, y, width, height, color, id, handler);
         this.parentId = parentId;

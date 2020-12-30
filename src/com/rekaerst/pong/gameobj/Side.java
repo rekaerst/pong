@@ -30,6 +30,10 @@ import java.awt.Rectangle;
 import com.rekaerst.pong.Game;
 import com.rekaerst.pong.Handler;
 
+/**
+ * implemention of score area. When instance of ball collide with instance of
+ * Side, ther corresponding player get a scroe
+ */
 public class Side extends CollisonObject {
 
     public Side(int x, int width, ID id, Handler handler) {

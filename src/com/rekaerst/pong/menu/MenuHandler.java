@@ -28,12 +28,20 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 
+/**
+ * Implement of simple menu handler, implement render methods. instances of
+ * Buttons belonds to instance of Menu that was to be handled by handler was
+ * added to a linked list LinkedList<MenuButton> buttons
+ */
 public class MenuHandler extends MouseAdapter {
     private int mx;
     private int my;
     public LinkedList<MenuButton> buttons = new LinkedList<MenuButton>();
 
     @Override
+    /**
+     * update lasted clicked position mx, my and test each button belonds to menu
+     */
     public void mousePressed(MouseEvent e) {
         super.mousePressed(e);
 
@@ -53,24 +61,49 @@ public class MenuHandler extends MouseAdapter {
         super.mouseReleased(e);
     }
 
+    /**
+     * render each button belonds to corresponding menu
+     * 
+     * @param g graphics context to render with
+     */
     public void render(Graphics g) {
         for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).render(g);
         }
     }
 
+    /**
+     * add instance of MenuButton to this handler
+     * 
+     * @param object instance of MnuButton
+     */
     public void addButton(MenuButton object) {
         this.buttons.add(object);
     }
 
+    /**
+     * remove instance of MenuButton to this handler
+     * 
+     * @param object instance of MnuButton
+     */
     public void removeButton(MenuButton object) {
         this.buttons.remove(object);
     }
 
+    /**
+     * get x coordinate of lasted clicked location
+     * 
+     * @return x coordinate of lasted clicked location
+     */
     public int getMx() {
         return mx;
     }
 
+    /**
+     * get y coordinate of lasted clicked location
+     * 
+     * @return y coordinate of lasted clicked location
+     */
     public int getMy() {
         return my;
     }
