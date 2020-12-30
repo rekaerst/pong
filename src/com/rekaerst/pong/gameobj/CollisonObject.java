@@ -4,12 +4,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import com.rekaerst.pong.World;
+import com.rekaerst.pong.Handler;
 
 public class CollisonObject extends GameObject {
 
-    public CollisonObject(int x, int y, int width, int height, Color color, ID id, World world) {
-        super(x, y, width, height, color, id, world);
+    public CollisonObject(int x, int y, int width, int height, Color color, ID id, Handler handler) {
+        super(x, y, width, height, color, id, handler);
     }
 
     @Override

@@ -32,7 +32,7 @@ public class Game extends Canvas implements Runnable {
     private MenuHandler mainMenuHandler;
     private MenuHandler helpMenuHandler;
 
-    private World world;
+    private Handler Handler;
     private HUD hud;
     private ScoreBoard scoreBoard;
 
@@ -59,7 +59,7 @@ public class Game extends Canvas implements Runnable {
             System.setProperty("sun.java2d.opengl", "true");
         }
 
-        world = new World();
+        Handler = new Handler();
         hud = new HUD();
 
         mainMenuHandler = new MenuHandler();
@@ -69,7 +69,7 @@ public class Game extends Canvas implements Runnable {
         helpMenu = new HelpMenu("Help", this, helpMenuHandler);
         scoreBoard = new ScoreBoard(this);
 
-        this.addKeyListener(new KeyInput(world, this));
+        this.addKeyListener(new KeyInput(Handler, this));
         this.addMouseListener(mainMenuHandler);
 
         new Window(WIDTH, HEIGHT, TITLE, this);
@@ -77,26 +77,26 @@ public class Game extends Canvas implements Runnable {
 
     public void initialGame() {
         removeMouseListener(mainMenuHandler);
-        world.removeAll();
+        Handler.removeAll();
         ScoreBoard.clearScore();
 
-        GameObject player1 = new Player(WIDTH / 16, HEIGHT / 2, 10, new Color(255, 180, 180), ID.Player1, world);
-        GameObject player2 = new Player(WIDTH / 16 * 15, HEIGHT / 2, 10, new Color(180, 180, 255), ID.Player2, world);
-        GameObject net = new Net(Game.WIDTH / 2, 10, new Color(220, 220, 220), ID.Other, world);
-        GameObject sideLeft = new Side(0, SIDE_WIDTH, ID.Player1Side, world);
-        GameObject sideRight = new Side(WIDTH - SIDE_WIDTH, SIDE_WIDTH, ID.Player2Side, world);
-        GameObject ball = new Ball(WIDTH / 2, HEIGHT / 2, 10, new Color(255, 255, 200), ID.Ball, world);
-        GameObject edgeUp = new Edge(HEIGHT - 20, EDGE_HEIGHT, new Color(220, 220, 255), world);
-        GameObject edgeDown = new Edge(0, EDGE_HEIGHT, new Color(220, 220, 255), world);
+        GameObject player1 = new Player(WIDTH / 16, HEIGHT / 2, 10, new Color(255, 180, 180), ID.Player1, Handler);
+        GameObject player2 = new Player(WIDTH / 16 * 15, HEIGHT / 2, 10, new Color(180, 180, 255), ID.Player2, Handler);
+        GameObject net = new Net(Game.WIDTH / 2, 10, new Color(220, 220, 220), ID.Other, Handler);
+        GameObject sideLeft = new Side(0, SIDE_WIDTH, ID.Player1Side, Handler);
+        GameObject sideRight = new Side(WIDTH - SIDE_WIDTH, SIDE_WIDTH, ID.Player2Side, Handler);
+        GameObject ball = new Ball(WIDTH / 2, HEIGHT / 2, 10, new Color(255, 255, 200), ID.Ball, Handler);
+        GameObject edgeUp = new Edge(HEIGHT - 20, EDGE_HEIGHT, new Color(220, 220, 255), Handler);
+        GameObject edgeDown = new Edge(0, EDGE_HEIGHT, new Color(220, 220, 255), Handler);
 
-        world.addObject(sideLeft);
-        world.addObject(sideRight);
-        world.addObject(edgeUp);
-        world.addObject(edgeDown);
-        world.addObject(net);
-        world.addObject(player1);
-        world.addObject(player2);
-        world.addObject(ball);
+        Handler.addObject(sideLeft);
+        Handler.addObject(sideRight);
+        Handler.addObject(edgeUp);
+        Handler.addObject(edgeDown);
+        Handler.addObject(net);
+        Handler.addObject(player1);
+        Handler.addObject(player2);
+        Handler.addObject(ball);
 
     }
 
@@ -151,7 +151,7 @@ public class Game extends Canvas implements Runnable {
         switch (gameState) {
             case Game:
                 hud.tick();
-                world.tick();
+                Handler.tick();
                 scoreBoard.tick();
                 break;
             case Menu:
@@ -182,7 +182,7 @@ public class Game extends Canvas implements Runnable {
         switch (gameState) {
             case Game:
                 hud.render(g);
-                world.render(g);
+                Handler.render(g);
                 break;
             case Menu:
                 mainMenu.render(g);
@@ -192,7 +192,7 @@ public class Game extends Canvas implements Runnable {
                 break;
             case End:
                 hud.render(g);
-                world.render(g);
+                Handler.render(g);
                 break;
             default:
                 break;

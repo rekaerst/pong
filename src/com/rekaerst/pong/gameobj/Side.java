@@ -5,12 +5,12 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import com.rekaerst.pong.Game;
-import com.rekaerst.pong.World;
+import com.rekaerst.pong.Handler;
 
 public class Side extends CollisonObject {
 
-    public Side(int x, int width, ID id, World world) {
-        super(x, 0, width, Game.HEIGHT, null, id, world);
+    public Side(int x, int width, ID id, Handler handler) {
+        super(x, 0, width, Game.HEIGHT, null, id, handler);
     }
 
     @Override

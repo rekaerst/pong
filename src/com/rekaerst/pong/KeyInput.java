@@ -9,11 +9,11 @@ import com.rekaerst.pong.gameobj.Player;
 
 public class KeyInput extends KeyAdapter {
 
-    private World world;
+    private Handler handler;
     private Game game;
 
-    public KeyInput(World handler, Game game) {
-        this.world = handler;
+    public KeyInput(Handler handler, Game game) {
+        this.handler = handler;
         this.game = game;
     }
 
@@ -33,8 +33,8 @@ public class KeyInput extends KeyAdapter {
             }
         }
 
-        for (int i = 0; i < world.objects.size(); i++) {
-            GameObject tempObject = world.objects.get(i);
+        for (int i = 0; i < handler.objects.size(); i++) {
+            GameObject tempObject = handler.objects.get(i);
             if (tempObject.getId() == ID.Player1) {
                 Player player = (Player) tempObject;
                 switch (key) {
@@ -75,8 +75,8 @@ public class KeyInput extends KeyAdapter {
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
 
-        for (int i = 0; i < world.objects.size(); i++) {
-            GameObject tempObject = world.objects.get(i);
+        for (int i = 0; i < handler.objects.size(); i++) {
+            GameObject tempObject = handler.objects.get(i);
             if (tempObject.getId() == ID.Player1) {
                 Player player = (Player) tempObject;
                 switch (key) {

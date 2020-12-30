@@ -8,15 +8,15 @@ import java.util.Random;
 
 import com.rekaerst.pong.Game;
 import com.rekaerst.pong.ScoreBoard;
-import com.rekaerst.pong.World;
+import com.rekaerst.pong.Handler;
 
 public class Ball extends CollisonObject {
     public static final double BOUNDS_FACTOR = 2;
     private int radius;
     private Random r;
 
-    public Ball(int x, int y, int radius, Color color, ID id, World world) {
-        super(x, y, radius * 2, radius * 2, color, id, world);
+    public Ball(int x, int y, int radius, Color color, ID id, Handler handler) {
+        super(x, y, radius * 2, radius * 2, color, id, handler);
         this.radius = radius;
         r = new Random();
         velY = 0;
@@ -30,8 +30,8 @@ public class Ball extends CollisonObject {
         x += velX;
         y += velY;
         // collision detection
-        for (int i = 0; i < world.objects.size(); i++) {
-            GameObject tempObject = world.objects.get(i);
+        for (int i = 0; i < handler.objects.size(); i++) {
+            GameObject tempObject = handler.objects.get(i);
             if (!tempObject.equals(this) && tempObject.id != ID.Other && tempObject.intersects(this)) {
                 switch (tempObject.id) {
                     case Edge:
@@ -62,7 +62,7 @@ public class Ball extends CollisonObject {
                 }
             }
         }
-        world.addObject(new Trail(x, y, width, height, 25, color, id, ID.Trail, world));
+        handler.addObject(new Trail(x, y, width, height, 25, color, id, ID.Trail, handler));
     }
 
     @Override

@@ -7,7 +7,7 @@ import java.awt.Rectangle;
 
 import com.rekaerst.pong.Game;
 import com.rekaerst.pong.ScoreBoard;
-import com.rekaerst.pong.World;
+import com.rekaerst.pong.Handler;
 
 public class Player extends CollisonObject {
     private int speed = 10;
@@ -16,12 +16,12 @@ public class Player extends CollisonObject {
 
     private double force = 0;
 
-    public Player(int x, int y, int width, int height, Color color, ID id, World world) {
-        super(x, y, width, height, color, id, world);
+    public Player(int x, int y, int width, int height, Color color, ID id, Handler handler) {
+        super(x, y, width, height, color, id, handler);
     }
 
-    public Player(int x, int y, int width, Color color, ID id, World world) {
-        super(x, y, width, width * 10, color, id, world);
+    public Player(int x, int y, int width, Color color, ID id, Handler handler) {
+        super(x, y, width, width * 10, color, id, handler);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class Player extends CollisonObject {
             if (y < Game.HEIGHT - height / 2 - Game.EDGE_HEIGHT)
                 y += velY;
         }
-        world.addObject(new Trail(x, y, width, height, 5, color, id, ID.Trail, world));
+        handler.addObject(new Trail(x, y, width, height, 5, color, id, ID.Trail, handler));
     }
 
     @Override

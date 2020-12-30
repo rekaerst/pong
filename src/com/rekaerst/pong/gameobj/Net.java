@@ -5,14 +5,14 @@ import java.awt.Graphics;
 import java.awt.Shape;
 
 import com.rekaerst.pong.Game;
-import com.rekaerst.pong.World;
+import com.rekaerst.pong.Handler;
 
 public class Net extends GameObject {
     public static final int HOLES = 18;
     public static final int HOLES_LENGTH = (Game.HEIGHT - 2 * Game.EDGE_HEIGHT) / (HOLES * 2 + 1);
 
-    public Net(int x, int width, Color color, ID id, World world) {
-        super(x, 0, width, Game.HEIGHT, color, id, world);
+    public Net(int x, int width, Color color, ID id, Handler handler) {
+        super(x, 0, width, Game.HEIGHT, color, id, handler);
     }
 
     @Override

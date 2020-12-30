@@ -5,12 +5,12 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import com.rekaerst.pong.Game;
-import com.rekaerst.pong.World;
+import com.rekaerst.pong.Handler;
 
 public class Edge extends CollisonObject {
 
-    public Edge(int y, int height, Color color, World world) {
-        super(0, y, Game.WIDTH, height, color, ID.Edge, world);
+    public Edge(int y, int height, Color color, Handler handler) {
+        super(0, y, Game.WIDTH, height, color, ID.Edge, handler);
         this.height = height;
     }
 

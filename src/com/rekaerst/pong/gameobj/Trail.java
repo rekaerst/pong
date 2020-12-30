@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 
-import com.rekaerst.pong.World;
+import com.rekaerst.pong.Handler;
 
 public class Trail extends GameObject {
     private ID parentId;
@@ -15,8 +15,8 @@ public class Trail extends GameObject {
 
     private int life;
 
-    public Trail(int x, int y, int width, int height, int life, Color color, ID parentId, ID id, World world) {
-        super(x, y, width, height, color, id, world);
+    public Trail(int x, int y, int width, int height, int life, Color color, ID parentId, ID id, Handler handler) {
+        super(x, y, width, height, color, id, handler);
         this.parentId = parentId;
         this.life = life;
     }
@@ -26,7 +26,7 @@ public class Trail extends GameObject {
         if (alpha > 1.0 / life) {
             alpha -= 1.0 / life - 0.001f;
         } else {
-            world.removeObject(this);
+            handler.removeObject(this);
         }
     }
 

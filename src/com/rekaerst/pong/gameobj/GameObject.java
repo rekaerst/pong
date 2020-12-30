@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Shape;
 
-import com.rekaerst.pong.World;
+import com.rekaerst.pong.Handler;
 
 public abstract class GameObject {
 
@@ -12,16 +12,16 @@ public abstract class GameObject {
     protected int velX, velY;
     protected int width, height;
     protected ID id;
-    protected World world;
+    protected Handler handler;
     protected Color color = Color.white;
 
-    public GameObject(int x, int y, int width, int height, Color color, ID id, World world) {
+    public GameObject(int x, int y, int width, int height, Color color, ID id, Handler handler) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.id = id;
-        this.world = world;
+        this.handler = handler;
         this.color = color;
     }
 
