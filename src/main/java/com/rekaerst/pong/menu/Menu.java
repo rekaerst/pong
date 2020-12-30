@@ -8,6 +8,9 @@ import java.awt.GraphicsEnvironment;
 import java.awt.event.MouseAdapter;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import com.rekaerst.pong.Game;
 
@@ -82,7 +85,8 @@ public class Menu extends MouseAdapter {
     private void loadFont() {
         try {
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            font = Font.createFont(Font.TRUETYPE_FONT, new File("res/3270-Regular.otf"));
+            InputStream is = getClass().getResourceAsStream("/fonts/3270-Regular.otf");
+            font = Font.createFont(Font.TRUETYPE_FONT, is);
             ge.registerFont(font);
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();

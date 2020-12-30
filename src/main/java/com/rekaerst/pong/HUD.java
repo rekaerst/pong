@@ -26,7 +26,10 @@ package com.rekaerst.pong;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.IOException;
+import java.io.InputStream;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import com.rekaerst.pong.gameobj.ID;
@@ -65,8 +68,12 @@ public class HUD {
     }
 
     private void loadImage() {
-        ImageIcon ii = new ImageIcon("res/Win.png");
-        WinImage = ii.getImage();
+        InputStream is = getClass().getResourceAsStream("/images/Win.png");
+        try {
+            WinImage = ImageIO.read(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /** tick method of HUD, handles game logic of HUD */
