@@ -1,9 +1,13 @@
 # very simple pong game in java
+
 ## build
+
 ```bash
-$ mvn clean package
+bash:~/src/pong$ mvn clean package
 ```
-##run
+
+## run
+
 ```bash
-java -jar ./target/pong-1.0.0.jar
+bash:~/src/pong$ java -jar ./target/pong-1.0.0.jar
 ```
