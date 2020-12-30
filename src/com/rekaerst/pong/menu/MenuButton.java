@@ -15,7 +15,7 @@ public class MenuButton {
         this.height = height;
         this.text = text;
         this.parentMenu = parentMenu;
-        parentMenu.addButton(this);
+        parentMenu.getMenuHandler().addButton(this);
     }
 
     public void render(Graphics g) {
@@ -27,8 +27,9 @@ public class MenuButton {
     }
 
     public boolean isClicked() {
-        if (parentMenu.getMx() >= x - width / 2 && parentMenu.getMx() <= x + width / 2
-                && parentMenu.getMy() >= y - height / 2 && parentMenu.getMy() <= y + height / 2) {
+        if (parentMenu.getMenuHandler().getMx() >= x - width / 2 && parentMenu.getMenuHandler().getMx() <= x + width / 2
+                && parentMenu.getMenuHandler().getMy() >= y - height / 2
+                && parentMenu.getMenuHandler().getMy() <= y + height / 2) {
             return true;
         } else {
             return false;
@@ -49,6 +50,14 @@ public class MenuButton {
 
     public int getHeight() {
         return height;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
 }

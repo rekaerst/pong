@@ -46,6 +46,7 @@ public class Trail extends GameObject {
             default:
                 break;
         }
+        g2d.setComposite(makeTranspaprent(1));
     }
 
     private AlphaComposite makeTranspaprent(float alpha) {

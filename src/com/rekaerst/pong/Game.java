@@ -13,7 +13,10 @@ import com.rekaerst.pong.gameobj.ID;
 import com.rekaerst.pong.gameobj.Net;
 import com.rekaerst.pong.gameobj.Player;
 import com.rekaerst.pong.gameobj.Side;
+import com.rekaerst.pong.menu.MainMenu;
+import com.rekaerst.pong.menu.HelpMenu;
 import com.rekaerst.pong.menu.Menu;
+import com.rekaerst.pong.menu.MenuHandler;
 
 public class Game extends Canvas implements Runnable {
 
@@ -24,10 +27,17 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
     private boolean running = false;
 
+    private Menu mainMenu;
+    private Menu helpMenu;
+    private MenuHandler mainMenuHandler;
+    private MenuHandler helpMenuHandler;
+
     private World world;
     private HUD hud;
-    private Menu menu;
     private ScoreBoard scoreBoard;
+
+    private boolean isFirstRun = true;
+    private boolean isGamePaused = false;
 
     public static final int WIDTH = 1280, HEIGHT = WIDTH / 16 * 9;
     public static final int EDGE_HEIGHT = 20;
@@ -52,11 +62,16 @@ public class Game extends Canvas implements Runnable {
         isDebugging = true;
         world = new World();
         hud = new HUD();
-        menu = new Menu("Menu", this);
+
+        mainMenuHandler = new MenuHandler();
+        helpMenuHandler = new MenuHandler();
+
+        mainMenu = new MainMenu("Menu", this, mainMenuHandler);
+        helpMenu = new HelpMenu("Help", this, helpMenuHandler);
         scoreBoard = new ScoreBoard();
 
-        this.addKeyListener(new KeyInput(world));
-        this.addMouseListener(menu);
+        this.addKeyListener(new KeyInput(world, this));
+        this.addMouseListener(mainMenuHandler);
 
         new Window(WIDTH, HEIGHT, TITLE, this);
 
@@ -66,6 +81,8 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void initialGame() {
+        removeMouseListener(mainMenuHandler);
+
         GameObject player1 = new Player(WIDTH / 16, HEIGHT / 2, 10, new Color(255, 180, 180), ID.Player1, world);
         GameObject player2 = new Player(WIDTH / 16 * 15, HEIGHT / 2, 10, new Color(180, 180, 255), ID.Player2, world);
         GameObject net = new Net(Game.WIDTH / 2, 10, new Color(220, 220, 220), ID.Other, world);
@@ -111,13 +128,18 @@ public class Game extends Canvas implements Runnable {
 
         this.requestFocus();
         while (running) {
-            long now = System.nanoTime();
-            delta += (now - lastTime) / ns;
-            lastTime = now;
-            while (delta >= 1) {
-                tick();
-                delta--;
+            if (gameState == Game.STATE.Game) {
+                long now = System.nanoTime();
+                delta += (now - lastTime) / ns;
+                lastTime = now;
+                while (delta >= 1) {
+                    tick();
+                    delta--;
+                }
+            } else {
+                lastTime = System.nanoTime();
             }
+
             if (running) {
                 render();
             }
@@ -141,13 +163,13 @@ public class Game extends Canvas implements Runnable {
                 scoreBoard.tick();
                 break;
             case Menu:
-                menu.tick();
+                mainMenu.tick();
                 break;
             default:
                 break;
         }
 
-        menu.tick();
+        mainMenu.tick();
     }
 
     private void render() {
@@ -172,8 +194,10 @@ public class Game extends Canvas implements Runnable {
                 hud.render(g);
                 break;
             case Menu:
-                menu.render(g);
+                mainMenu.render(g);
                 break;
+            case Help:
+                helpMenu.render(g);
             default:
                 break;
         }
@@ -220,4 +244,38 @@ public class Game extends Canvas implements Runnable {
         this.gameState = gameState;
     }
 
+    public void setHelpVisiable(boolean isVisiable) {
+        if (isVisiable) {
+            removeMouseListener(mainMenuHandler);
+            addMouseListener(helpMenuHandler);
+        } else {
+            removeMouseListener(helpMenuHandler);
+            addMouseListener(mainMenuHandler);
+        }
+    }
+
+    public void setMenuVisiable(boolean isVisiable) {
+        if (isVisiable) {
+            addMouseListener(mainMenuHandler);
+        } else {
+
+            removeMouseListener(mainMenuHandler);
+        }
+    }
+
+    public void startGame() {
+        if (isFirstRun) {
+            initialGame();
+            isFirstRun = false;
+        }
+        // isGamePaused = false;
+    }
+
+    public void pauseGame() {
+        // isGamePaused = true;
+    }
+
+    public MainMenu getMainMenu() {
+        return (MainMenu) mainMenu;
+    }
 }

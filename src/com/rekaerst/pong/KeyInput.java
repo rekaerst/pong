@@ -9,17 +9,30 @@ import com.rekaerst.pong.gameobj.Player;
 
 public class KeyInput extends KeyAdapter {
 
-    private Handler handler;
+    private World world;
+    private Game game;
 
-    public KeyInput(Handler handler) {
-        this.handler = handler;
+    public KeyInput(World handler, Game game) {
+        this.world = handler;
+        this.game = game;
     }
 
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
 
-        for (int i = 0; i < handler.objects.size(); i++) {
-            GameObject tempObject = handler.objects.get(i);
+        if (key == KeyEvent.VK_ESCAPE) {
+            if (game.getGameState() == Game.STATE.Game) {
+                game.setGameState(Game.STATE.Menu);
+                game.getMainMenu().getPlayButton().setText("Resume");
+
+                game.setMenuVisiable(true);
+                game.pauseGame();
+                return;
+            }
+        }
+
+        for (int i = 0; i < world.objects.size(); i++) {
+            GameObject tempObject = world.objects.get(i);
             if (tempObject.getId() == ID.Player1) {
                 Player player = (Player) tempObject;
                 switch (key) {
@@ -60,8 +73,8 @@ public class KeyInput extends KeyAdapter {
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
 
-        for (int i = 0; i < handler.objects.size(); i++) {
-            GameObject tempObject = handler.objects.get(i);
+        for (int i = 0; i < world.objects.size(); i++) {
+            GameObject tempObject = world.objects.get(i);
             if (tempObject.getId() == ID.Player1) {
                 Player player = (Player) tempObject;
                 switch (key) {
