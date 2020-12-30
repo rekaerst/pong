@@ -26,7 +26,7 @@ public class MenuButton {
     public void act() {
     }
 
-    public boolean isClicked() {
+    public boolean isPressed() {
         if (parentMenu.getMenuHandler().getMx() >= x - width / 2 && parentMenu.getMenuHandler().getMx() <= x + width / 2
                 && parentMenu.getMenuHandler().getMy() >= y - height / 2
                 && parentMenu.getMenuHandler().getMy() <= y + height / 2) {

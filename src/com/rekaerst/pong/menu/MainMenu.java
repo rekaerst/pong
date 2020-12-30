@@ -11,7 +11,6 @@ public class MainMenu extends Menu {
         playButton = new MenuButton(Game.WIDTH / 2, Game.HEIGHT / 5 * 2, 300, 100, "Play", this) {
             @Override
             public void act() {
-                game.setGameState(Game.STATE.Game);
                 game.setMenuVisiable(false);
                 game.startGame();
             }
@@ -20,7 +19,6 @@ public class MainMenu extends Menu {
         new MenuButton(Game.WIDTH / 2, Game.HEIGHT / 5 * 3, 300, 100, "Help", this) {
             @Override
             public void act() {
-                game.setGameState(Game.STATE.Help);
                 game.setHelpVisiable(true);
             }
         };
@@ -29,6 +27,13 @@ public class MainMenu extends Menu {
             @Override
             public void act() {
                 System.exit(0);
+            }
+        };
+
+        new MenuButton(0 + 60, Game.HEIGHT - 30 / 2 - 1, 120, 30, "Debug", this) {
+            @Override
+            public void act() {
+                Game.isDebugging = !Game.isDebugging;
             }
         };
     }

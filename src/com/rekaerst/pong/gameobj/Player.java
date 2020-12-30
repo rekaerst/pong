@@ -51,12 +51,9 @@ public class Player extends CollisonObject {
             g2d.draw(getBounds());
             g.setColor(new Color(140, 140, 255));
             drawDebugInfo(g, id.toString(), y + height / 2 + 20);
-            drawDebugInfo(g,
-                    "Points:"
-                            + String.valueOf(
-                                    id == ID.Player1 ? ScoreBoard.getPlayer1Points() : ScoreBoard.getPlayer2Points())
-                            + "\n",
-                    y + height / 2 + 40);
+            drawDebugInfo(g, "Points:" + String.valueOf(
+                    id == ID.Player1 ? ScoreBoard.getPlayerPoints(ID.Player1) : ScoreBoard.getPlayerPoints(ID.Player2))
+                    + "\n", y + height / 2 + 40);
             drawDebugInfo(g, "Velocity:" + String.valueOf(velY), y + height / 2 + 60);
             drawDebugInfo(g, "Force:" + String.valueOf(force), y + height / 2 + 80);
         }

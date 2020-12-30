@@ -50,13 +50,12 @@ public class Ball extends CollisonObject {
                         }
                         break;
                     case Player2Side:
-                        ScoreBoard.setPlayer1Points(ScoreBoard.getPlayer1Points() + 1);
+                        ScoreBoard.setPlayerPoints(ID.Player1, ScoreBoard.getPlayerPoints(ID.Player1) + 1);
                         respawn();
                         break;
                     case Player1Side:
+                        ScoreBoard.setPlayerPoints(ID.Player2, ScoreBoard.getPlayerPoints(ID.Player2) + 1);
                         respawn();
-
-                        ScoreBoard.setPlayer2Points(ScoreBoard.getPlayer2Points() + 1);
                         break;
                     default:
                         break;

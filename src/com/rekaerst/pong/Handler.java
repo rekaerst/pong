@@ -40,4 +40,8 @@ public class Handler { // update all of objects
     public void removeObject(GameObject object) {
         this.objects.remove(object);
     }
+
+    public void removeAll() {
+        objects = new LinkedList<GameObject>();
+    }
 }

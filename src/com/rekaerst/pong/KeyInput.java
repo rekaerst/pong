@@ -22,12 +22,14 @@ public class KeyInput extends KeyAdapter {
 
         if (key == KeyEvent.VK_ESCAPE) {
             if (game.getGameState() == Game.STATE.Game) {
-                game.setGameState(Game.STATE.Menu);
                 game.getMainMenu().getPlayButton().setText("Resume");
-
                 game.setMenuVisiable(true);
-                game.pauseGame();
                 return;
+            } else if (game.getGameState() == Game.STATE.End) {
+                game.getMainMenu().getPlayButton().setText("Replay");
+                game.setMenuVisiable(true);
+            } else if (game.getGameState() == Game.STATE.Menu && !game.isFirstRun()) {
+                game.setMenuVisiable(false);
             }
         }
 

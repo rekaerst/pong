@@ -32,7 +32,6 @@ public class HelpMenu extends Menu {
         new MenuButton(Game.WIDTH / 2, Game.HEIGHT / 5 * 4, 300, 100, "Back", this) {
             @Override
             public void act() {
-                game.setGameState(Game.STATE.Menu);
                 game.setHelpVisiable(false);
             }
         };

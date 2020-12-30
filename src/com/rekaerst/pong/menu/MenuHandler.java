@@ -19,7 +19,7 @@ public class MenuHandler extends MouseAdapter {
 
         for (int i = 0; i < buttons.size(); i++) {
             MenuButton tempButton = buttons.get(i);
-            if (tempButton.isClicked()) {
+            if (tempButton.isPressed()) {
                 tempButton.act();
             }
         }
