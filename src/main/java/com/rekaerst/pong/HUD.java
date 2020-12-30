@@ -30,7 +30,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
 import com.rekaerst.pong.gameobj.ID;
 
