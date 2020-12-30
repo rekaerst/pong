@@ -15,9 +15,6 @@ public class Menu extends MouseAdapter {
     protected Font font;
     protected Font fontHeading;
     protected Font fontButton;
-    // private MenuButton playButton;
-    // private MenuButton helpButton;
-    // private MenuButton exitButton;
     private Game game;
     private String text;
     private MenuHandler menuHandler;

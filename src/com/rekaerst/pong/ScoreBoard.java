@@ -1,7 +1,5 @@
 package com.rekaerst.pong;
 
-import javax.lang.model.element.Element;
-
 import com.rekaerst.pong.gameobj.ID;
 
 public class ScoreBoard {
