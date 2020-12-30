@@ -58,7 +58,7 @@ public class HelpMenu extends Menu {
         new MenuButton(Game.WIDTH / 2, Game.HEIGHT / 5 * 4, 300, 100, "Back", this) {
             @Override
             public void act() {
-                game.setHelpVisiable(false);
+                parentMenu.getGame().setHelpVisiable(false);
             }
         };
         fontText = font.deriveFont(Font.CENTER_BASELINE, 20f);

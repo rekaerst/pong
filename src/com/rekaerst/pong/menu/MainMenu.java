@@ -37,15 +37,15 @@ public class MainMenu extends Menu {
         playButton = new MenuButton(Game.WIDTH / 2, Game.HEIGHT / 5 * 2, 300, 100, "Play", this) {
             @Override
             public void act() {
-                game.setMenuVisiable(false);
-                game.startGame();
+                parentMenu.getGame().setMenuVisiable(false);
+                parentMenu.getGame().startGame();
             }
         };
 
         new MenuButton(Game.WIDTH / 2, Game.HEIGHT / 5 * 3, 300, 100, "Help", this) {
             @Override
             public void act() {
-                game.setHelpVisiable(true);
+                parentMenu.getGame().setHelpVisiable(true);
             }
         };
 
