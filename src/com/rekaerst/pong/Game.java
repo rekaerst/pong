@@ -37,7 +37,6 @@ public class Game extends Canvas implements Runnable {
     private ScoreBoard scoreBoard;
 
     private boolean isFirstRun = true;
-    private boolean isGamePaused = false;
 
     public static final int WIDTH = 1280, HEIGHT = WIDTH / 16 * 9;
     public static final int EDGE_HEIGHT = 20;
@@ -46,7 +45,7 @@ public class Game extends Canvas implements Runnable {
     public static final String TITLE = "Pong Game";
 
     public enum STATE {
-        Pause, Game, Menu, Help
+        Game, Menu, Help, End
     }
 
     private STATE gameState = STATE.Menu;
@@ -59,7 +58,7 @@ public class Game extends Canvas implements Runnable {
         if (isLinux()) {
             System.setProperty("sun.java2d.opengl", "true");
         }
-        isDebugging = true;
+
         world = new World();
         hud = new HUD();
 
@@ -68,20 +67,18 @@ public class Game extends Canvas implements Runnable {
 
         mainMenu = new MainMenu("Menu", this, mainMenuHandler);
         helpMenu = new HelpMenu("Help", this, helpMenuHandler);
-        scoreBoard = new ScoreBoard();
+        scoreBoard = new ScoreBoard(this);
 
         this.addKeyListener(new KeyInput(world, this));
         this.addMouseListener(mainMenuHandler);
 
         new Window(WIDTH, HEIGHT, TITLE, this);
-
-        if (gameState == STATE.Game) {
-            initialGame();
-        }
     }
 
     public void initialGame() {
         removeMouseListener(mainMenuHandler);
+        world.removeAll();
+        ScoreBoard.clearScore();
 
         GameObject player1 = new Player(WIDTH / 16, HEIGHT / 2, 10, new Color(255, 180, 180), ID.Player1, world);
         GameObject player2 = new Player(WIDTH / 16 * 15, HEIGHT / 2, 10, new Color(180, 180, 255), ID.Player2, world);
@@ -128,18 +125,13 @@ public class Game extends Canvas implements Runnable {
 
         this.requestFocus();
         while (running) {
-            if (gameState == Game.STATE.Game) {
-                long now = System.nanoTime();
-                delta += (now - lastTime) / ns;
-                lastTime = now;
-                while (delta >= 1) {
-                    tick();
-                    delta--;
-                }
-            } else {
-                lastTime = System.nanoTime();
+            long now = System.nanoTime();
+            delta += (now - lastTime) / ns;
+            lastTime = now;
+            while (delta >= 1) {
+                tick();
+                delta--;
             }
-
             if (running) {
                 render();
             }
@@ -155,11 +147,11 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void tick() {
-        world.tick();
 
         switch (gameState) {
             case Game:
                 hud.tick();
+                world.tick();
                 scoreBoard.tick();
                 break;
             case Menu:
@@ -187,17 +179,21 @@ public class Game extends Canvas implements Runnable {
             Toolkit.getDefaultToolkit().sync();
         }
 
-        world.render(g);
-
         switch (gameState) {
             case Game:
                 hud.render(g);
+                world.render(g);
                 break;
             case Menu:
                 mainMenu.render(g);
                 break;
             case Help:
                 helpMenu.render(g);
+                break;
+            case End:
+                hud.render(g);
+                world.render(g);
+                break;
             default:
                 break;
         }
@@ -240,15 +236,13 @@ public class Game extends Canvas implements Runnable {
         return gameState;
     }
 
-    public void setGameState(STATE gameState) {
-        this.gameState = gameState;
-    }
-
     public void setHelpVisiable(boolean isVisiable) {
         if (isVisiable) {
+            gameState = STATE.Help;
             removeMouseListener(mainMenuHandler);
             addMouseListener(helpMenuHandler);
         } else {
+            gameState = STATE.Menu;
             removeMouseListener(helpMenuHandler);
             addMouseListener(mainMenuHandler);
         }
@@ -256,9 +250,10 @@ public class Game extends Canvas implements Runnable {
 
     public void setMenuVisiable(boolean isVisiable) {
         if (isVisiable) {
+            gameState = STATE.Menu;
             addMouseListener(mainMenuHandler);
         } else {
-
+            gameState = STATE.Game;
             removeMouseListener(mainMenuHandler);
         }
     }
@@ -268,14 +263,19 @@ public class Game extends Canvas implements Runnable {
             initialGame();
             isFirstRun = false;
         }
-        // isGamePaused = false;
     }
 
-    public void pauseGame() {
-        // isGamePaused = true;
+    public void endGame() {
+        gameState = STATE.End;
+        isFirstRun = true;
     }
 
     public MainMenu getMainMenu() {
         return (MainMenu) mainMenu;
     }
+
+    public boolean isFirstRun() {
+        return isFirstRun;
+    }
+
 }

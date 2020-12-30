@@ -1,5 +1,7 @@
 package com.rekaerst.pong;
 
+import javax.lang.model.element.Element;
+
 import com.rekaerst.pong.gameobj.ID;
 
 public class ScoreBoard {
@@ -7,35 +9,49 @@ public class ScoreBoard {
     private static int player1Points;
     private static int player2Points;
     private static ID winner;
+    private static Game game;
 
-    public ScoreBoard() {
-
+    public ScoreBoard(Game game) {
+        ScoreBoard.game = game;
         player1Points = 0;
         player2Points = 0;
+        winner = null;
     }
 
     public void tick() {
-        if (player1Points > 11) {
-            winner = ID.Player1;
-        } else if (player2Points > 11) {
-            winner = ID.Player2;
+
+    }
+
+    public static int getPlayerPoints(ID playerId) {
+        if (playerId == ID.Player1) {
+            return ScoreBoard.player1Points;
+        } else if (playerId == ID.Player2) {
+            return ScoreBoard.player2Points;
+        } else {
+            return 0;
         }
     }
 
-    public static int getPlayer1Points() {
-        return player1Points;
+    public static void setPlayerPoints(ID playerId, int playerPoints) {
+        if (playerId == ID.Player1) {
+            ScoreBoard.player1Points = playerPoints;
+        } else if (playerId == ID.Player2) {
+            ScoreBoard.player2Points = playerPoints;
+        }
+
+        if (player1Points > 11) {
+            winner = ID.Player1;
+            game.endGame();
+        } else if (player2Points > 11) {
+            winner = ID.Player2;
+            game.endGame();
+        }
     }
 
-    public static void setPlayer1Points(int player1Points) {
-        ScoreBoard.player1Points = player1Points;
-    }
-
-    public static int getPlayer2Points() {
-        return player2Points;
-    }
-
-    public static void setPlayer2Points(int player2Points) {
-        ScoreBoard.player2Points = player2Points;
+    public static void clearScore() {
+        ScoreBoard.player1Points = 0;
+        ScoreBoard.player2Points = 0;
+        winner = null;
     }
 
     public static ID getWinner() {
