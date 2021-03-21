@@ -11,3 +11,5 @@ bash:~/src/pong$ mvn clean package
 ```bash
 bash:~/src/pong$ java -jar ./target/pong-1.0.0.jar
 ```
+
+have fun
