@@ -53,22 +53,22 @@ public class Game extends Canvas implements Runnable {
     /** Whether the thread is running */
     private boolean running = false;
 
-    private Menu mainMenu;
-    private Menu helpMenu;
-    private MenuHandler mainMenuHandler;
-    private MenuHandler helpMenuHandler;
+    private final Menu mainMenu;
+    private final Menu helpMenu;
+    private final MenuHandler mainMenuHandler;
+    private final MenuHandler helpMenuHandler;
 
-    private Handler Handler;
-    private HUD hud;
-    private ScoreBoard scoreBoard;
+    private final Handler Handler;
+    private final HUD hud;
+    private final ScoreBoard scoreBoard;
 
     private boolean isFirstRun = true;
 
     /** Game Windows size */
     public static final int WIDTH = 1280, HEIGHT = WIDTH / 16 * 9;
-    /** Game Collision Aera size */
+    /** Game Collision Area size */
     public static final int EDGE_HEIGHT = 20;
-    /** Game Score Aera size */
+    /** Game Score Area size */
     public static final int SIDE_WIDTH = 20;
 
     /** main Application name */
@@ -83,13 +83,13 @@ public class Game extends Canvas implements Runnable {
     private STATE gameState = STATE.Menu;
 
     /**
-     * Debugin infomation display flag, show collision bounds and atributes of game
+     * Debugging information display flag, show collision bounds and atributes of game
      * objects when true
      */
     public static boolean isDebugging = false;
 
     public Game() {
-        // Hardware acclertaion is not enabled on linux by defualt
+        // Hardware acceleration is not enabled on linux by defualt
         if (isLinux()) {
             System.setProperty("sun.java2d.opengl", "true");
         }
@@ -125,7 +125,7 @@ public class Game extends Canvas implements Runnable {
         GameObject player2 = new Player(WIDTH / 16 * 15, HEIGHT / 2, 10, new Color(180, 180, 255), ID.Player2, Handler);
         // middle net of table
         GameObject net = new Net(Game.WIDTH / 2, 10, new Color(220, 220, 220), ID.Other, Handler);
-        // Scroe area
+        // Score area
         GameObject sideLeft = new Side(0, SIDE_WIDTH, ID.Player1Side, Handler);
         GameObject sideRight = new Side(WIDTH - SIDE_WIDTH, SIDE_WIDTH, ID.Player2Side, Handler);
         // pong ball with collision detection
@@ -133,8 +133,7 @@ public class Game extends Canvas implements Runnable {
         // Objects for collision detection, reverse y velocity of ball when collide with
         // ball
         GameObject edgeUp = new Edge(HEIGHT - 20, EDGE_HEIGHT, new Color(220, 220, 255), Handler);
-        GameObject edgeDown = new Edge(0, EDGE_HEIGHT, new Color(220, 220, 255), Handler);
-
+        GameObject edgeDown = new Edge(0, EDGE_HEIGHT, new Color(220, 220, 255), Handler);;
         Handler.addObject(sideLeft);
         Handler.addObject(sideRight);
         Handler.addObject(edgeUp);
